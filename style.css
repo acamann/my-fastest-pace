@@ -1,3 +1,10 @@
+:root {
+    --default-race-color: red;
+    --half-marathon-color: blue;
+    --five-k-color: green;
+    --five-mile-color: orange;
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -19,17 +26,17 @@ main {
     r: 5;
 }
 .race-data {
-    fill: red;
+    fill: var(--default-race-color);
 }
 .half-marathon {
-    fill: blue;
+    fill: var(--half-marathon-color);
 }
 .five-k {
-    fill: green;
+    fill: var(--five-k-color);
 }
 .five-mile {
-    fill: orange;
+    fill: var(--five-mile-color);
 }
 .data-label {
     font-size: 0.7em;
-}0
+}
