@@ -1,14 +1,36 @@
 :root {
-    --default-race-color: red;
-    --half-marathon-color: blue;
-    --five-k-color: green;
-    --five-mile-color: orange;
+    --default-race-color:#ee8572;
+    --half-marathon-color:#35495e;
+    --five-k-color: #347474;
+    --five-mile-color:#63b7af;
 }
-
 body { 
-    padding: 16px;
+    padding: 0px;
     margin: 0px;
+    font-family: 'Poppins', sans-serif;
     /* border: solid 1px lightseagreen; */
+}
+header {
+    background-color: #35495e;
+    margin: 0px;
+    padding: 24px;
+}
+header h1 {
+    padding-left: 8px;
+    margin: 0px;
+    color: white;
+    font-weight: normal;
+    font-size: 3em;
+    font-family: 'Faster One', cursive;
+}
+main {
+    padding: 24px;
+    margin: 0px;
+}
+main h2 {
+    padding: 0px;
+    margin: 0px;
+    color: #35495e;
 }
 /* outer-container {
     display: flex;
