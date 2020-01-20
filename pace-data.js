@@ -1,19 +1,29 @@
-const raceData = [
-    {date:"2017-02-03", distanceName:"half-marathon", raceName:"Katy Half Marathon", distanceMiles:13.1, time:"2:05:11", pace:"9:33"},
-    {date:"2014-02-09", distanceName:"half-marathon", raceName:"Rhythm & Blues Half Marathon", distanceMiles:13.1, time:"2:19:06", pace:"10:37"},
-    {date:"2019-04-27", distanceName:"five-k", raceName:"Every Village 5K", distanceMiles:3.1, time:"0:29:47", pace:"9:35"},
-    {date:"2013-11-28", distanceName:"five-mile", raceName:"Festival Foods Turkey Trot", distanceMiles:5, time:"0:50:49", pace:"10:10"},
-    {date:"2013-05-04", distanceName:"half-marathon", raceName:"Prairie du Chien Half Marathon", distanceMiles:13.1, time:"2:03:43", pace:"9:27"},
-    {date:"2013-04-07", distanceName:"half-marathon", raceName:"Angie's Half Crazy Half Marathon", distanceMiles:13.1, time:"2:14:47", pace:"10:17"},
-    {date:"2008-11-27", distanceName:"five-mile", raceName:"Festival Foods Turkey Trot", distanceMiles:5, time:"0:46:52", pace:"9:22"},
-    {date:"2009-04-25", distanceName:"five-mile", raceName:"Crazy Legs Classic", distanceMiles:5, time:"0:49:31", pace:"9:54"},
-    {date:"2013-01-13", distanceName:"half-marathon", raceName:"Aramco Houston Half Marathon", distanceMiles:13.1, time:"2:22:48", pace:"10:54"},
-    {date:"2011-01-30", distanceName:"marathon", raceName:"Chevron Houston Marathon", distanceMiles:26.2, time:"4:58:24", pace:"10:54"},
-    {date:"2012-11-22", distanceName:"ten-k", raceName:"TXU Energy Turkey Trot 10K", distanceMiles:6.2, time:"1:01:51", pace:"9:57"},
-    {date:"2010-02-27", distanceName:"ten-k", raceName:"ConocoPhillips Rodeo Run 10K", distanceMiles:6.2, time:"0:58:18", pace:"9:23"},
-    {date:"2008-06-28", distanceName:"five-k", raceName:"Time To Fly Run", distanceMiles:3.1, time:"0:27:50", pace:"8:58"},
-    {date:"2020-01-19", distanceName:"half-marathon", raceName:"Aramco Houston Half Marathon", distanceMiles:13.1, time:"2:06:46", pace:"9:41"}
-];
+// const raceData = [
+//     {date:"2017-02-03", distanceName:"half-marathon", raceName:"Katy Half Marathon", distanceMiles:13.1, time:"2:05:11", pace:"9:33"},
+//     {date:"2014-02-09", distanceName:"half-marathon", raceName:"Rhythm & Blues Half Marathon", distanceMiles:13.1, time:"2:19:06", pace:"10:37"},
+//     {date:"2019-04-27", distanceName:"five-k", raceName:"Every Village 5K", distanceMiles:3.1, time:"0:29:47", pace:"9:35"},
+//     {date:"2013-11-28", distanceName:"five-mile", raceName:"Festival Foods Turkey Trot", distanceMiles:5, time:"0:50:49", pace:"10:10"},
+//     {date:"2013-05-04", distanceName:"half-marathon", raceName:"Prairie du Chien Half Marathon", distanceMiles:13.1, time:"2:03:43", pace:"9:27"},
+//     {date:"2013-04-07", distanceName:"half-marathon", raceName:"Angie's Half Crazy Half Marathon", distanceMiles:13.1, time:"2:14:47", pace:"10:17"},
+//     {date:"2008-11-27", distanceName:"five-mile", raceName:"Festival Foods Turkey Trot", distanceMiles:5, time:"0:46:52", pace:"9:22"},
+//     {date:"2009-04-25", distanceName:"five-mile", raceName:"Crazy Legs Classic", distanceMiles:5, time:"0:49:31", pace:"9:54"},
+//     {date:"2013-01-13", distanceName:"half-marathon", raceName:"Aramco Houston Half Marathon", distanceMiles:13.1, time:"2:22:48", pace:"10:54"},
+//     {date:"2011-01-30", distanceName:"marathon", raceName:"Chevron Houston Marathon", distanceMiles:26.2, time:"4:58:24", pace:"10:54"},
+//     {date:"2012-11-22", distanceName:"ten-k", raceName:"TXU Energy Turkey Trot 10K", distanceMiles:6.2, time:"1:01:51", pace:"9:57"},
+//     {date:"2010-02-27", distanceName:"ten-k", raceName:"ConocoPhillips Rodeo Run 10K", distanceMiles:6.2, time:"0:58:18", pace:"9:23"},
+//     {date:"2008-06-28", distanceName:"five-k", raceName:"Time To Fly Run", distanceMiles:3.1, time:"0:27:50", pace:"8:58"},
+//     {date:"2020-01-19", distanceName:"half-marathon", raceName:"Aramco Houston Half Marathon", distanceMiles:13.1, time:"2:06:46", pace:"9:41"}
+// ];
+let raceData = [];
+
+function loadRaceData() {
+    fetch('/data/race-data.json')
+    .then(response => response.json())
+    .then(data => {
+        raceData = data.races;   
+        displayRaceData();
+    })
+}
 
 function displayRaceData() {
     
