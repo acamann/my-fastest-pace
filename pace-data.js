@@ -42,7 +42,7 @@ function displayRaceData() {
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", "0 0 500 500")
+        .attr("viewBox", "0 0 " + width + " " + height)
         .selectAll("circle")
         .data(raceData)
         .enter()
