@@ -111,6 +111,14 @@
             "distanceMiles": 13.1,
             "time": "2:06:46",
             "pace": "9:41"
+        },
+        {
+            "date": "2009-12-13",
+            "distanceName": "five-mile",
+            "raceName": "Chevron Jingle Bell Run",
+            "distanceMiles": 5,
+            "time": "0:52:37",
+            "pace": "10:31"
         }
     ]
 }
