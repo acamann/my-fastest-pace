@@ -6,6 +6,7 @@ function loadRaceData() {
     .then(data => {
         raceData = data.races;   
         displayPaceGraph();
+        createCheckBoxes();
     })
 }
 
@@ -66,6 +67,22 @@ function displayPaceGraph() {
         .attr("transform", "translate(" + padding + ", 0)")
         .call(yAxis);
 
+}
+
+function createCheckBoxes() {    
+    d3.select("#race-type-toggle")
+        .selectAll("label")
+        .data(d3.map(raceData, function(d) { return d.distanceName; }).keys())
+        .enter()
+        .append("label")
+        .attr("for", (d) => d)
+        .text((d) => d)
+        .append("input")
+        .attr("type", "checkbox")
+        .attr("name", (d) => d)
+        .attr("value", (d) => d)
+        .attr("class", (d) => d)
+        .attr("checked", "checked");
 }
 
 
