@@ -30,32 +30,32 @@ function displayPaceGraph() {
                                 return d3.timeFormat("%-M:%S")( new Date(0).setSeconds(d))
                         });
 
-    d3.select("#pace-graph-container")
+    var svg = d3.select("#pace-graph-container")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", "0 0 " + width + " " + height)
-        .selectAll("circle")
+        .attr("viewBox", "0 0 " + width + " " + height);
+
+    var circles = svg.selectAll("circle")
         .data(raceData)
         .enter()
         .append("circle")
         .attr("cx", (race) => xScale(Date.parse(race.date)))
         .attr("cy", (race) => yScale(convertPaceStringToSeconds(race.pace)))
         .attr("r", 2)
-        .attr("class", (race) => race.distanceName + " race-data")
-        .append("title")
-        .text((race) => race.raceName + ", " + race.date);
+        .attr("class", (race) => race.distanceName + " race-data");
 
-    d3.select("svg")
-        .selectAll("text")
+    circles.append("title")
+        .text((race) => race.raceName + ", " + race.date);
+    
+    svg.selectAll("text")
         .data(raceData)
         .enter()
         .append("text")
-        .attr("class", "data-label")
+        .attr("class", (race) => race.distanceName + " data-label")
         .text((race) => race.pace)
         .attr("x", (race) => xScale(Date.parse(race.date)) + 7)
         .attr("y", (race) => yScale(convertPaceStringToSeconds(race.pace)) + 3);
-
 
     d3.select("svg")
         .append("g")
@@ -76,13 +76,22 @@ function createCheckBoxes() {
         .enter()
         .append("label")
         .attr("for", (d) => d)
+        .attr("class", (d) => d)
         .text((d) => d)
         .append("input")
         .attr("type", "checkbox")
         .attr("name", (d) => d)
         .attr("value", (d) => d)
-        .attr("class", (d) => d)
-        .attr("checked", "checked");
+        .attr("checked", "checked")
+        .on("click", function(){
+            // Determine if current type is visible
+            var active   = this.checked;           
+            newOpacity = active ? 1 : 0;
+
+            // Hide or show the elements
+            d3.selectAll("circle." + this.name).style("opacity", newOpacity);
+            d3.selectAll("text." + this.name).style("opacity", newOpacity);
+        });
 }
 
 

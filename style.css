@@ -1,5 +1,6 @@
 :root {
     --default-race-color:#ee8572;
+    --marathon-color:#193757;
     --half-marathon-color:#35495e;
     --five-k-color: #347474;
     --five-mile-color:#63b7af;
@@ -49,15 +50,26 @@ main h2 {
 .race-data {
     fill: var(--default-race-color);
 }
+.marathon {
+    fill: var(--marathon-color);
+    color: var(--marathon-color);
+}
 .half-marathon {
     fill: var(--half-marathon-color);
+    color: var(--half-marathon-color);
 }
 .five-k {
     fill: var(--five-k-color);
+    color: var(--five-k-color);
 }
 .five-mile {
     fill: var(--five-mile-color);
+    color: var(--five-mile-color);
 }
 .data-label {
     font-size: 0.7em;
+}
+
+#race-type-toggle label {
+    padding-right: 16px;
 }
