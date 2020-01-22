@@ -1,9 +1,11 @@
 :root {
     --default-race-color:#ee8572;
-    --marathon-color:#193757;
-    --half-marathon-color:#35495e;
+    --marathon-color:#c9485b;
+    --half-marathon-color:#e89da2;
+    --ten-k-color: #35495e;
     --five-k-color: #347474;
-    --five-mile-color:#63b7af;
+    --five-mile-color:#63b7af;    
+    --dark-text-color: #35495e;
 }
 body { 
     padding: 0 3%;
@@ -24,16 +26,30 @@ header h1 {
     font-size: 3em;
     font-family: 'Faster One', cursive;
 } */
-nav {
+header {
     border-bottom: solid 2px gray;
     padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-h1 {
+header #logo {
+    color: var(--dark-text-color);   
+}
+header #logo h1 {
+    display: inline;
     padding: 16px;
     margin: 0px;
     font-weight: normal;
     font-size: 2.5em;
     font-family: 'Faster One', cursive;
+}
+#search-form a {
+    padding-left: 8px;
+    color: var(--dark-text-color);
+}
+#search-form a:hover, #search-form a:active {
+    color: var(--default-race-color);
 }
 main {
     display: flex;
@@ -47,25 +63,29 @@ main h2 {
     margin: 0px;
     color: #35495e;
 }
-/* outer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}*/
 #pace-graph-container{
-    flex-basis: 58%;
+    flex-basis: 50%;
+    flex-grow: 1;
 }
 #race-table-container {
-    flex-basis: 35%;
+    width: auto;
     border-left: solid 1px gray;
     padding: 16px;
+}
+#race-table {
     font-size: 0.9em;
 }
-
+#race-table th {
+    text-align: left;
+    padding: 4px;
+    border-bottom: solid 1px lightgray;
+}
+#race-table td {
+    padding: 4px;
+}
 #pace-graph-container svg {
-    width: 700px;
-    height: 400px;
+    width: 100%;
+    height: auto;
 }
 #pace-graph-container circle:hover {
     r: 5;
@@ -84,6 +104,10 @@ main h2 {
 .five-k {
     fill: var(--five-k-color);
     color: var(--five-k-color);
+}
+.ten-k {
+    fill: var(--ten-k-color);
+    color: var(--ten-k-color);
 }
 .five-mile {
     fill: var(--five-mile-color);

@@ -22,7 +22,7 @@ function displayPaceGraph() {
     
     const width = 500;
     const height = 300;
-    const padding = 30;
+    const padding = 40;
     const seconds_scale_padding = 10;
     const date_scale_padding = 1000 * 60 * 60 * 24 * 200;
 
@@ -87,7 +87,7 @@ function createCheckBoxes() {
         .append("label")
         .attr("for", (d) => d)
         .attr("class", (d) => d)
-        .text((d) => d)
+        .text((d) => cleanRaceName(d))
         .append("input")
         .attr("type", "checkbox")
         .attr("name", (d) => d)
@@ -105,9 +105,12 @@ function createCheckBoxes() {
 }
 
 function displayRaceTable(data, columns) {
-    var table = d3.select('#race-table-container').append('table')
+    var table = d3.select('#race-table-container')
+        .append('table')
     var thead = table.append('thead')
     var	tbody = table.append('tbody');
+
+    table.attr("id", "race-table");
 
     // append the header row
     thead.append('tr')
@@ -115,7 +118,9 @@ function displayRaceTable(data, columns) {
       .data(columns)
       .enter()
       .append('th')
-        .text(function (column) { return column; });
+        .text(function (column) { 
+            return cleanColumnName(column); 
+        });
 
     // create a row for each object in the data
     var rows = tbody.selectAll('tr')
@@ -141,4 +146,26 @@ function displayRaceTable(data, columns) {
 function convertPaceStringToSeconds(time) {
     let msArray = time.split(':');
     return ((+msArray[0]) * 60) + (+msArray[1]);
+}
+
+function cleanColumnName(column) {
+    switch (column) {
+        case "date": return "Date";
+        case "distanceMiles" : return "Dist";
+        case "raceName" : return "Race";
+        case "pace" : return "Pace";
+        case "time" : return "Time";
+        default: return column;
+    }
+}
+
+function cleanRaceName(name) {
+    switch (name) {
+        case "five-k": return "5K";
+        case "half-marathon" : return "Half Marathon";
+        case "marathon" : return "Marathon";
+        case "ten-k" : return "10K";
+        case "five-mile" : return "5 Mile";
+        default: return name;
+    }
 }

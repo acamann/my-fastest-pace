@@ -6,17 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src='https://d3js.org/d3.v4.min.js'></script>
     <script src='pace-data.js'></script>
+    <script src="https://kit.fontawesome.com/dd4f417e34.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Faster+One|Poppins&display=swap" rel="stylesheet">
     <title>My Fastest Pace</title>
 </head>
 <body onload="loadRaceData()">
-    <nav>
-       
-    </nav>
+    <header>
+        <div id="logo">
+            <i class="fas fa-running fa-3x"></i><h1>My Fastest Pace</h1>
+        </div>
+        <nav>
+
+
+        </nav>
+        <form id="search-form">
+            <input /><a href="#"><i class="fas fa-search"></i></a>
+        </form>
+    </header>
     <main>
          <section id="pace-graph-container">
-            <h1>My Fastest Pace</h1>
+            
             <div id="race-type-toggle"></div>
         </section>
         <section id="race-table-container">            
