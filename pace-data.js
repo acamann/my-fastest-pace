@@ -4,10 +4,17 @@ function loadRaceData() {
     fetch('/data/race-data.json')
     .then(response => response.json())
     .then(data => {
-        raceData = data.races;   
+        raceData = data.races;
+        sortDataByColumnName('date');   
         displayPaceGraph();
         displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
         createCheckBoxes();
+    })
+}
+
+function sortDataByColumnName(column) {
+    raceData = raceData.sort(function(a, b) {
+        return d3.descending(a[column], b[column]);
     })
 }
 
@@ -16,15 +23,17 @@ function displayPaceGraph() {
     const width = 500;
     const height = 300;
     const padding = 30;
+    const seconds_scale_padding = 10;
+    const date_scale_padding = 1000 * 60 * 60 * 24 * 200;
 
     const xScale = d3.scaleLinear()
-                        .domain([d3.min(raceData, (race) => Date.parse(race.date)), d3.max(raceData, (race) => Date.parse(race.date))])
+                        .domain([d3.min(raceData, (race) => Date.parse(race.date)) - date_scale_padding, d3.max(raceData, (race) => Date.parse(race.date)) + date_scale_padding])
                         .range([padding, width - padding]);
     const xAxis = d3.axisBottom(xScale)
                         .tickFormat(d3.timeFormat("%-m/%Y"));
     
     const yScale = d3.scaleLinear()
-                        .domain([d3.min(raceData, (race) => convertPaceStringToSeconds(race.pace)), d3.max(raceData, (race) => convertPaceStringToSeconds(race.pace))])
+                        .domain([d3.min(raceData, (race) => convertPaceStringToSeconds(race.pace)) - seconds_scale_padding, d3.max(raceData, (race) => convertPaceStringToSeconds(race.pace)) + seconds_scale_padding])
                         .range([height - padding, padding]);
     const yAxis = d3.axisLeft(yScale)
                         .tickFormat(function(d) {
@@ -103,7 +112,8 @@ function displayRaceTable(data, columns) {
     // append the header row
     thead.append('tr')
       .selectAll('th')
-      .data(columns).enter()
+      .data(columns)
+      .enter()
       .append('th')
         .text(function (column) { return column; });
 

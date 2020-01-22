@@ -6,12 +6,12 @@
     --five-mile-color:#63b7af;
 }
 body { 
-    padding: 0px;
+    padding: 0 3%;
     margin: 0px;
     font-family: 'Poppins', sans-serif;
     /* border: solid 1px lightseagreen; */
 }
-header {
+/* header {
     background-color: #35495e;
     margin: 0px;
     padding: 24px;
@@ -23,8 +23,22 @@ header h1 {
     font-weight: normal;
     font-size: 3em;
     font-family: 'Faster One', cursive;
+} */
+nav {
+    border-bottom: solid 2px gray;
+    padding: 16px;
+}
+h1 {
+    padding: 16px;
+    margin: 0px;
+    font-weight: normal;
+    font-size: 2.5em;
+    font-family: 'Faster One', cursive;
 }
 main {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 61.8% 38.2%;
     padding: 24px;
     margin: 0px;
 }
@@ -39,10 +53,19 @@ main h2 {
     align-items: center;
     height: 100vh;
 }*/
+#pace-graph-container{
+    flex-basis: 58%;
+}
+#race-table-container {
+    flex-basis: 35%;
+    border-left: solid 1px gray;
+    padding: 16px;
+    font-size: 0.9em;
+}
+
 #pace-graph-container svg {
-    /* border: solid 1px lightsalmon; */
-    width: 900px;
-    height: 500px;
+    width: 700px;
+    height: 400px;
 }
 #pace-graph-container circle:hover {
     r: 5;
@@ -73,3 +96,4 @@ main h2 {
 #race-type-toggle label {
     padding-right: 16px;
 }
+

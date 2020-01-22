@@ -119,6 +119,15 @@
             "distanceMiles": 5,
             "time": "0:52:37",
             "pace": "10:31"
+        },
+        {
+            "date": "2010-07-04",
+            "distanceName": "five-k",
+            "raceName": "Fox Firecracker 5k",
+            "location": "Kaukauna, WI",
+            "distanceMiles": 3.1,
+            "time": "0:27:49",
+            "pace": "8:58"
         }
     ]
 }
