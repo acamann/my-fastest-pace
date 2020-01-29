@@ -88,7 +88,7 @@ main h2 {
     height: auto;
 }
 #pace-graph-container circle:hover {
-    r: 5;
+    r: 3;
 }
 .race-data {
     fill: var(--default-race-color);

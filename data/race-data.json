@@ -128,6 +128,15 @@
             "distanceMiles": 3.1,
             "time": "0:27:49",
             "pace": "8:58"
+        },
+        {
+            "date": "2010-10-30",
+            "distanceName": "five-k",
+            "raceName": "Great Punpkin 5K",
+            "location": "Houston, TX",
+            "distanceMiles": 3.1,
+            "time": "0:25:10",
+            "pace": "8:06"
         }
     ]
 }

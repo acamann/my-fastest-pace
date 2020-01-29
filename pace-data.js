@@ -1,6 +1,20 @@
 var raceData = [];
 
 function loadRaceData() {
+    // connect to API
+    // axios.get('http://localhost:4000/races/')
+    //     .then(data => {
+    //         console.log(data);
+    //         raceData = data.data
+    //         sortDataByColumnName('date');   
+    //         displayPaceGraph();
+    //         displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
+    //         createCheckBoxes();
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     });
+    
     fetch('/data/race-data.json')
     .then(response => response.json())
     .then(data => {
@@ -64,7 +78,7 @@ function displayPaceGraph() {
         .append("text")
         .attr("class", (race) => race.distanceName + " data-label")
         .text((race) => race.pace)
-        .attr("x", (race) => xScale(Date.parse(race.date)) + 7)
+        .attr("x", (race) => xScale(Date.parse(race.date)) + 4)
         .attr("y", (race) => yScale(convertPaceStringToSeconds(race.pace)) + 3);
 
     d3.select("svg")
