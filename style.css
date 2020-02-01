@@ -11,21 +11,7 @@ body {
     padding: 0 3%;
     margin: 0px;
     font-family: 'Poppins', sans-serif;
-    /* border: solid 1px lightseagreen; */
 }
-/* header {
-    background-color: #35495e;
-    margin: 0px;
-    padding: 24px;
-}
-header h1 {
-    padding-left: 8px;
-    margin: 0px;
-    color: white;
-    font-weight: normal;
-    font-size: 3em;
-    font-family: 'Faster One', cursive;
-} */
 header {
     border-bottom: solid 2px gray;
     padding: 16px;
@@ -44,6 +30,18 @@ header #logo h1 {
     font-size: 2.5em;
     font-family: 'Faster One', cursive;
 }
+nav ul li {
+  display:inline;
+}
+nav a {  
+  color: var(--dark-text-color);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 16px;
+}
+nav a:hover {
+  color: var(--default-race-color);
+}
 #search-form a {
     padding-left: 8px;
     color: var(--dark-text-color);
@@ -51,8 +49,7 @@ header #logo h1 {
 #search-form a:hover, #search-form a:active {
     color: var(--default-race-color);
 }
-main {
-    display: flex;
+main #racesView {
     flex-wrap: wrap;
     grid-template-columns: 61.8% 38.2%;
     padding: 24px;
@@ -119,5 +116,12 @@ main h2 {
 
 #race-type-toggle label {
     padding-right: 16px;
+}
+
+.visible {
+    display: flex;
+}
+.invisible {
+    display: none;
 }
 

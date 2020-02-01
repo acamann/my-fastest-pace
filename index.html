@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src='https://d3js.org/d3.v4.min.js'></script>
     <script src='pace-data.js'></script>
+    <script src='view-handler.js'></script>
     <script src="https://kit.fontawesome.com/dd4f417e34.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Faster+One|Poppins&display=swap" rel="stylesheet">
     <title>My Fastest Pace</title>
@@ -17,21 +17,73 @@
         <div id="logo">
             <i class="fas fa-running fa-3x"></i><h1>My Fastest Pace</h1>
         </div>
-        <nav>
-
-
+        <nav>   
+            <ul>            
+                <li><a href="#" id="racesLink" class="nav-link">Races</a></li>
+                <li><a href="#" id="addRaceLink" class="nav-link">Add Race Result</a></li>
+                <li><a href="#" id="userLink" class="nav-link">Register / Login</a></li>
+            </ul>
         </nav>
-        <form id="search-form">
-            <!-- <input /><a href="#"><i class="fas fa-search"></i></a> -->
-        </form>
+        <!-- <form id="search-form">
+             <input /><a href="#"><i class="fas fa-search"></i></a>
+        </form> -->
     </header>
     <main>
-         <section id="pace-graph-container">
-            
-            <div id="race-type-toggle"></div>
-        </section>
-        <section id="race-table-container">            
-        </section>
+        <div id="racesView" class="view visible">
+            <section id="pace-graph-container">            
+                <div id="race-type-toggle"></div>
+            </section>
+            <section id="race-table-container">            
+            </section>
+        </div>
+        <div id="addRaceView" class="view invisible">
+            <h2>Add Race Result</h2>
+            <form onSubmit="addRace(event)">
+                <div className="form-group">
+                    <label>Race Date: </label>
+                    <input id="date" 
+                        type="date" />
+                </div>
+                <div className="form-group">
+                    <label>Race Name: </label>
+                    <input type="text"
+                        required
+                        className="form-control" />
+
+                </div>
+                <div className="form-group">
+                    <label>Distance: </label>
+                    <select ref="distanceInput"
+                        required
+                        className="form-control" >
+                            <option key="five-k" distance-name="five-k" value="3.1">5K</option>
+                            <option key="five-mile" distance-name="five-mile" value="5">5 Mile</option>
+                            <option key="ten-k" distance-name="ten-k" value="6.2">10K</option>
+                            <option key="fifteen-k" distance-name="fifteen-k" value="9.3">15K</option>
+                            <option key="half-marathon" distance-name="half-marathon" value="13.1">Half Marathon</option>
+                            <option key="marathon" distance-name="marathon" value="26.2">Marathon</option>
+                    </select>                        
+                </div>
+                <div className="form-group">
+                    <label>Time: </label>
+                    <input type="text"
+                        required
+                        className="form-control" />
+                </div>
+                <div className="form-group">
+                    <label>Pace: </label>
+                    <input type="text"
+                        required
+                        className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input type="submit" value="Add Race Result" className="btn" />
+                </div>
+            </form>
+        </div>
+        <div id="userView" class="view invisible">
+            <h3>Register / Sign In</h3>
+        </div>
     </main>
 </body>
 </html>

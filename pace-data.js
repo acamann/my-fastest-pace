@@ -1,29 +1,34 @@
 var raceData = [];
+var apiBaseURL = 'https://myfastestpace-server.herokuapp.com/';
 
 function loadRaceData() {
-    // connect to API
-    // axios.get('http://localhost:4000/races/')
-    //     .then(data => {
-    //         console.log(data);
-    //         raceData = data.data
-    //         sortDataByColumnName('date');   
-    //         displayPaceGraph();
-    //         displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
-    //         createCheckBoxes();
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    
-    fetch('/data/race-data.json')
-    .then(response => response.json())
-    .then(data => {
-        raceData = data.races;
-        sortDataByColumnName('date');   
-        displayPaceGraph();
-        displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
-        createCheckBoxes();
-    })
+    fetch(apiBaseURL+'races/')
+        .then(checkStatus)
+        .then(getJSON)
+        .then(data => {
+            raceData = data;
+            sortDataByColumnName('date');   
+            displayPaceGraph();
+            displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
+            createCheckBoxes();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+function checkStatus(response) {
+    if (response.status === 200) {
+        return Promise.resolve(response);
+    } else {
+        return Promise.reject(
+            new Error(response.statusText)
+        );
+    }
+}
+
+function getJSON(response) {
+    return response.json();
 }
 
 function sortDataByColumnName(column) {
@@ -146,7 +151,11 @@ function displayRaceTable(data, columns) {
     var cells = rows.selectAll('td')
       .data(function (row) {
         return columns.map(function (column) {
-          return {column: column, value: row[column]};
+            if (column=="date") {
+                return { column: column, value: cleanDate(row[column]) };
+            } else {                
+                return { column: column, value: row[column] };
+            }
         });
       })
       .enter()
@@ -154,6 +163,12 @@ function displayRaceTable(data, columns) {
         .text(function (d) { return d.value; });
 
   return table;
+}
+
+
+function addRace(event) {
+    event.preventDefault();
+    console.log(this.date.value);
 }
 
 
@@ -182,4 +197,9 @@ function cleanRaceName(name) {
         case "five-mile" : return "5 Mile";
         default: return name;
     }
+}
+
+function cleanDate(d) {
+    const date = new Date(d);
+    return date.toDateString();
 }
