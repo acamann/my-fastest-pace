@@ -143,10 +143,10 @@ function addTableToDOM(data, columns) {
 
     // append the header row
     thead.append('tr')
-      .selectAll('th')
-      .data(columns)
-      .enter()
-      .append('th')
+        .selectAll('th')
+        .data(columns)
+        .enter()
+        .append('th')
         .append('a')
         .attr("href", "#")
         .attr("id", function (column) { return column; })
@@ -155,7 +155,10 @@ function addTableToDOM(data, columns) {
         })
         .text(function (column) { 
             return cleanColumnName(column); 
-        });
+        })
+    thead.select('tr').append('th')
+        .text('Edit');
+    
 
     // create a row for each object in the data
     var rows = tbody.selectAll('tr')
@@ -179,11 +182,56 @@ function addTableToDOM(data, columns) {
       .append('td')
         .text(function (d) { return d.value; });
 
+    // console.log(rows);
+    // console.log(d3);
+    // var editCell = rows.selectAll('tr')
+    //   .data(function (row) {
+    //       return row._id;
+    //   })
+    //   .enter()
+    //   .append('td')
+    //   .text(function (d) { return d.value; });
+
   return table;
 }
 
+function submitNewRace(event) {
+    event.preventDefault();
+    const form = document.getElementById('addRaceForm');
+    postNewRaceToAPI(form);
+    displayRaceTableData();
+    displayMainView();
+}
 
-function addRace(event) {
+function postNewRaceToAPI(form) {
+    const race = {
+        date: form.date.value,
+        distanceName: form.distance.options[form.distance.options.selectedIndex].getAttribute('distance-name'),
+        raceName: form.raceName.value,
+        distanceMiles: Number(form.distance.options[form.distance.options.selectedIndex].value),
+        time: form.time.value,
+        pace: form.pace.value,
+        username: 'acamann'
+    }
+
+    // how to store and access currently logged-in username in session?
+    
+    console.log(race);
+
+    fetch(apiBaseURL + 'races/add', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(race)
+          }).then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            console.log(data);
+          });
+
+    raceData.push(race);
+}
+
+function editRace(event) {
     event.preventDefault();
 
     const form = document.getElementById('addRaceForm');
