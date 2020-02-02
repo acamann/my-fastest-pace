@@ -7,15 +7,15 @@ function loadRaceData() {
         .then(getJSON)
         .then(data => {
             raceData = data;
-            sortDataByColumnName('date');   
+            sortTableByColumnName('date');   // this also displays the table, refactor for clarity
             displayPaceGraph();
-            displayRaceTable(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
             createCheckBoxes();
         })
         .catch((error) => {
             console.log(error);
         });
 }
+
 
 function checkStatus(response) {
     if (response.status === 200) {
@@ -31,10 +31,11 @@ function getJSON(response) {
     return response.json();
 }
 
-function sortDataByColumnName(column) {
+function sortTableByColumnName(column) {
     raceData = raceData.sort(function(a, b) {
         return d3.descending(a[column], b[column]);
-    })
+    });
+    displayRaceTableData();
 }
 
 function displayPaceGraph() {
@@ -113,17 +114,26 @@ function createCheckBoxes() {
         .attr("value", (d) => d)
         .attr("checked", "checked")
         .on("click", function(){
-            // Determine if current type is visible
-            var active   = this.checked;           
-            newOpacity = active ? 1 : 0;
-
-            // Hide or show the elements
-            d3.selectAll("circle." + this.name).style("opacity", newOpacity);
-            d3.selectAll("text." + this.name).style("opacity", newOpacity);
+            toggleCheckBox(this);
         });
 }
 
-function displayRaceTable(data, columns) {
+function toggleCheckBox(element) {
+    // Determine if current type is visible
+    var active   = element.checked;           
+    newOpacity = active ? 1 : 0;
+
+    // Hide or show the elements
+    d3.selectAll("circle." + element.name).style("opacity", newOpacity);
+    d3.selectAll("text." + element.name).style("opacity", newOpacity);
+}
+
+function displayRaceTableData() {
+    d3.selectAll("#race-table-container > *").remove();
+    addTableToDOM(raceData, ['date', 'raceName', 'distanceMiles', 'time', 'pace']);
+}
+
+function addTableToDOM(data, columns) {
     var table = d3.select('#race-table-container')
         .append('table')
     var thead = table.append('thead')
@@ -137,6 +147,12 @@ function displayRaceTable(data, columns) {
       .data(columns)
       .enter()
       .append('th')
+        .append('a')
+        .attr("href", "#")
+        .attr("id", function (column) { return column; })
+        .attr("onclick", function (column) {
+            return "sortTableByColumnName('" + column + "')";
+        })
         .text(function (column) { 
             return cleanColumnName(column); 
         });
@@ -145,7 +161,8 @@ function displayRaceTable(data, columns) {
     var rows = tbody.selectAll('tr')
       .data(data)
       .enter()
-      .append('tr');
+      .append('tr')
+      .attr('class', function (column) { return column.distanceName; });
 
     // create a cell in each row for each column
     var cells = rows.selectAll('td')
@@ -168,7 +185,36 @@ function displayRaceTable(data, columns) {
 
 function addRace(event) {
     event.preventDefault();
-    console.log(this.date.value);
+
+    const form = document.getElementById('addRaceForm');
+
+    const race = {
+        date: form.date.value,
+        distanceName: form.distance.options[form.distance.options.selectedIndex].getAttribute('distance-name'),
+        raceName: form.raceName.value,
+        distanceMiles: Number(form.distance.options[form.distance.options.selectedIndex].value),
+        time: form.time.value,
+        pace: form.pace.value,
+        username: 'acamann'
+    }
+
+    // how to store and access currently logged-in username in session?
+    
+    console.log(race);
+
+    fetch(apiBaseURL + 'races/add', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(race)
+          }).then(function(response) {
+            return response.json();
+          }).then(function(data) {
+            console.log(data);
+          });
+
+    raceData.push(race);
+    displayRaceTableData();
+    displayMainView();
 }
 
 
@@ -194,6 +240,7 @@ function cleanRaceName(name) {
         case "half-marathon" : return "Half Marathon";
         case "marathon" : return "Marathon";
         case "ten-k" : return "10K";
+        case "fifteen-k" : return "15K";
         case "five-mile" : return "5 Mile";
         default: return name;
     }

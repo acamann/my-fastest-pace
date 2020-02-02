@@ -3,20 +3,28 @@ var currentView = 'racesView';
 // set up elements with event handlers:
 function addEventListeners() {
     document.getElementById('racesLink').addEventListener("click", 
-        function() { changeView(event, 'racesView'); });
+        function() { clickViewLink(event, 'racesView'); });
     document.getElementById('addRaceLink').addEventListener("click", 
-        function() { changeView(event, 'addRaceView'); });
+        function() { clickViewLink(event, 'addRaceView'); });
     document.getElementById('userLink').addEventListener("click", 
-        function() { changeView(event, 'userView'); });
+        function() { clickViewLink(event, 'userView'); });
 }
 
-function changeView(event, desiredView) {
+function clickViewLink(event, desiredView) {
     event.preventDefault();
+    changeView(desiredView);
+}
+
+function changeView(desiredView) {
     if (currentView != desiredView) {
         hide(currentView);
         show(desiredView);
         currentView = desiredView;
     }
+}
+
+function displayMainView() {
+    changeView('racesView');
 }
 
 function hide(elementID) {

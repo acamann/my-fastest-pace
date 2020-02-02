@@ -37,52 +37,61 @@
             </section>
         </div>
         <div id="addRaceView" class="view invisible">
-            <h2>Add Race Result</h2>
-            <form onSubmit="addRace(event)">
-                <div className="form-group">
-                    <label>Race Date: </label>
-                    <input id="date" 
-                        type="date" />
-                </div>
-                <div className="form-group">
-                    <label>Race Name: </label>
-                    <input type="text"
-                        required
-                        className="form-control" />
+            <div id="form-container">
+                <h2>Add Race Result</h2>
+                <form onSubmit="addRace(event)" id="addRaceForm">
+                    <div className="form-group">
+                        <label>Race Date: </label>
+                        <input id="date" 
+                            type="date" />
+                    </div>
+                    <div class="form-group">
+                        <label>Race Name: </label>
+                        <input type="text"
+                            required
+                            class="form-control"
+                            id="raceName" />
 
-                </div>
-                <div className="form-group">
-                    <label>Distance: </label>
-                    <select ref="distanceInput"
-                        required
-                        className="form-control" >
-                            <option key="five-k" distance-name="five-k" value="3.1">5K</option>
-                            <option key="five-mile" distance-name="five-mile" value="5">5 Mile</option>
-                            <option key="ten-k" distance-name="ten-k" value="6.2">10K</option>
-                            <option key="fifteen-k" distance-name="fifteen-k" value="9.3">15K</option>
-                            <option key="half-marathon" distance-name="half-marathon" value="13.1">Half Marathon</option>
-                            <option key="marathon" distance-name="marathon" value="26.2">Marathon</option>
-                    </select>                        
-                </div>
-                <div className="form-group">
-                    <label>Time: </label>
-                    <input type="text"
-                        required
-                        className="form-control" />
-                </div>
-                <div className="form-group">
-                    <label>Pace: </label>
-                    <input type="text"
-                        required
-                        className="form-control" />
-                </div>
-                <div className="form-group">
-                    <input type="submit" value="Add Race Result" className="btn" />
-                </div>
-            </form>
+                    </div>
+                    <div class="form-group">
+                        <label>Distance: </label>
+                        <select ref="distanceInput"
+                            id="distance"
+                            required
+                            class="form-control" >
+                                <option key="five-k" distance-name="five-k" value="3.1">5K</option>
+                                <option key="five-mile" distance-name="five-mile" value="5">5 Mile</option>
+                                <option key="ten-k" distance-name="ten-k" value="6.2">10K</option>
+                                <option key="fifteen-k" distance-name="fifteen-k" value="9.3">15K</option>
+                                <option key="half-marathon" distance-name="half-marathon" value="13.1">Half Marathon</option>
+                                <option key="marathon" distance-name="marathon" value="26.2">Marathon</option>
+                        </select>                        
+                    </div>
+                    <div class="form-group">
+                        <label>Time: </label>
+                        <input type="text"
+                            required
+                            class="form-control"
+                            id="time" />
+                    </div>
+                    <div class="form-group">
+                        <label>Pace: </label>
+                        <input type="text"
+                            required
+                            class="form-control"
+                            id="pace" />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Add Race Result" class="btn" />
+                    </div>
+                </form>
+            </div>
         </div>
         <div id="userView" class="view invisible">
-            <h3>Register / Sign In</h3>
+            <div id="user-container">
+                <h2>Register / Sign In</h2>
+                <div>To be developed...</div>
+            </div>
         </div>
     </main>
 </body>

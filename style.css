@@ -1,16 +1,23 @@
 :root {
-    --default-race-color:#ee8572;
-    --marathon-color:#c9485b;
-    --half-marathon-color:#e89da2;
-    --ten-k-color: #35495e;
-    --five-k-color: #347474;
-    --five-mile-color:#63b7af;    
+    --marathon-color:#2F4858;
+    --half-marathon-color:#485676;
+    --fifteen-k-color: #73608C;
+    --ten-k-color: #A56792;
+    --five-mile-color:#D27188;    
+    --five-k-color: #EE8572;
     --dark-text-color: #35495e;
+    --hover-color:#ee8572;    
 }
 body { 
     padding: 0 3%;
     margin: 0px;
     font-family: 'Poppins', sans-serif;
+}
+a {
+    color: var(--dark-text-color);
+}
+a:hover {    
+    color: var(--hover-color);
 }
 header {
     border-bottom: solid 2px gray;
@@ -34,13 +41,8 @@ nav ul li {
   display:inline;
 }
 nav a {  
-  color: var(--dark-text-color);
-  text-decoration: none;
   font-weight: bold;
   padding: 16px;
-}
-nav a:hover {
-  color: var(--default-race-color);
 }
 #search-form a {
     padding-left: 8px;
@@ -49,15 +51,18 @@ nav a:hover {
 #search-form a:hover, #search-form a:active {
     color: var(--default-race-color);
 }
+main .view {
+    padding: 24px;
+}
 main #racesView {
     flex-wrap: wrap;
     grid-template-columns: 61.8% 38.2%;
-    padding: 24px;
     margin: 0px;
 }
 main h2 {
     padding: 0px;
     margin: 0px;
+    margin-bottom: 24px;
     color: #35495e;
 }
 #pace-graph-container{
@@ -106,6 +111,10 @@ main h2 {
     fill: var(--ten-k-color);
     color: var(--ten-k-color);
 }
+.fifteen-k {
+    fill: var(--fifteen-k-color);
+    color: var(--fifteen-k-color);
+}
 .five-mile {
     fill: var(--five-mile-color);
     color: var(--five-mile-color);
@@ -125,3 +134,41 @@ main h2 {
     display: none;
 }
 
+
+/* Add Race Form */
+#addRaceForm {
+    display: block;
+}
+/* .form-group {
+    display: flex;
+    flex: 0 0 auto;
+    flex-flow: row wrap;
+    align-items: center;
+    margin-bottom: 0;
+  }  */
+
+/*--------------------
+Form
+--------------------*/
+.form-group {
+    border: none;
+    padding: 0;
+    padding: 10px 0;
+    position: relative;
+    clear: both;
+}
+.form-group label {
+    display: block;
+    color: hsla(0, 0, 0, .6);
+    margin-bottom: 5px;
+}
+  
+form input, select {
+    width: 100%;
+    color: hsl(0, 0, 20);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    border: 1px solid hsla(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 4px hsla(0, 0, 0, 0.2);
+} 
