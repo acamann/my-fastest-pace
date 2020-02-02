@@ -30,8 +30,9 @@
         </form> -->
     </header>
     <main>
-        <button id="btn-call-api" onclick="callApi()">Call Api</button>
-        <pre id="api-call-result"></pre>
+        <!-- For testing Auth0 user authentication
+            <button id="btn-call-api" onclick="callApi()">Call Api</button>
+        <pre id="api-call-result"></pre> -->
 
         <div id="racesView" class="view visible">
             <section id="pace-graph-container">            
@@ -42,8 +43,10 @@
         </div>
         <div id="addRaceView" class="view invisible">
             <div id="form-container">
-                <h2>Add Race Result</h2>
-                <form onSubmit="submitNewRace(event)" id="addRaceForm">
+                <h2 id="add-race-form-header" class="visible">Add Race Result</h2>
+                <h2 id="edit-race-form-header" class="invisible">Edit Race Result</h2>
+                <form onSubmit="submitRaceData(event)" id="addRaceForm">
+                    <input id="id" type="hidden" name="id" />
                     <div className="form-group">
                         <label>Race Date: </label>
                         <input id="date" 
@@ -86,7 +89,8 @@
                             id="pace" />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Add Race Result" class="btn" />
+                        <input id="addRaceButton" type="submit" value="Add Race Result" class="btn visible" />
+                        <input id="updateRaceButton" type="submit" value="Update Race Result" class="btn invisible" />
                     </div>
                 </form>
             </div>

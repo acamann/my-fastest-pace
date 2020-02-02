@@ -156,6 +156,7 @@ function addTableToDOM(data, columns) {
         .text(function (column) { 
             return cleanColumnName(column); 
         })
+
     thead.select('tr').append('th')
         .text('Edit');
     
@@ -170,17 +171,32 @@ function addTableToDOM(data, columns) {
     // create a cell in each row for each column
     var cells = rows.selectAll('td')
       .data(function (row) {
-        return columns.map(function (column) {
+        let rowData = columns.map(function (column) {
             if (column=="date") {
                 return { column: column, value: cleanDate(row[column]) };
             } else {                
                 return { column: column, value: row[column] };
             }
         });
+        rowData.push( { column: 'edit', value: row['_id'] });
+        return rowData;
       })
       .enter()
       .append('td')
-        .text(function (d) { return d.value; });
+        .attr('class', function(d) { return d.column; })
+        .text(function (d) { 
+            if (d.column=="edit") {
+                return '';
+            } else {
+                return d.value; 
+            }
+        });
+
+    var editLinks = table.selectAll('td.edit')
+        .append('a')
+        .attr('href', '#')
+        .attr('onclick', function (d) { return 'loadRaceDataIntoEditForm("' + d.value + '")'; })
+        .text('edit');
 
     // console.log(rows);
     // console.log(d3);
@@ -195,15 +211,21 @@ function addTableToDOM(data, columns) {
   return table;
 }
 
-function submitNewRace(event) {
+function submitRaceData(event) {
     event.preventDefault();
     const form = document.getElementById('addRaceForm');
-    postNewRaceToAPI(form);
+    postRaceToAPI(form);
     displayRaceTableData();
     displayMainView();
+    clearFormData();
 }
 
-function postNewRaceToAPI(form) {
+function postRaceToAPI(form) {
+
+    // check if form has id value (if so, update instead of add)
+    const raceId = form.id.value;
+    const isNewRace = (raceId == "");
+    
     const race = {
         date: form.date.value,
         distanceName: form.distance.options[form.distance.options.selectedIndex].getAttribute('distance-name'),
@@ -215,10 +237,15 @@ function postNewRaceToAPI(form) {
     }
 
     // how to store and access currently logged-in username in session?
-    
-    console.log(race);
 
-    fetch(apiBaseURL + 'races/add', {
+    // different api call if updating...
+    let apiPostUrl;
+    if (isNewRace) {
+        apiPostUrl = apiBaseURL + 'races/add';
+    } else {
+        apiPostUrl = apiBaseURL + 'races/update/' + raceId;
+    }
+    fetch(apiPostUrl, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(race)
@@ -228,41 +255,38 @@ function postNewRaceToAPI(form) {
             console.log(data);
           });
 
-    raceData.push(race);
-}
-
-function editRace(event) {
-    event.preventDefault();
-
-    const form = document.getElementById('addRaceForm');
-
-    const race = {
-        date: form.date.value,
-        distanceName: form.distance.options[form.distance.options.selectedIndex].getAttribute('distance-name'),
-        raceName: form.raceName.value,
-        distanceMiles: Number(form.distance.options[form.distance.options.selectedIndex].value),
-        time: form.time.value,
-        pace: form.pace.value,
-        username: 'acamann'
+    if (isNewRace) {        
+        raceData.push(race);
+    } else {
+        const editedIndex = raceData.findIndex(race => race._id === raceId);
+        raceData[editedIndex] = race;
     }
 
-    // how to store and access currently logged-in username in session?
-    
-    console.log(race);
+}
 
-    fetch(apiBaseURL + 'races/add', {
-            method: 'post',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(race)
-          }).then(function(response) {
-            return response.json();
-          }).then(function(data) {
-            console.log(data);
-          });
+function loadRaceDataIntoEditForm(id) {
+    displayEditRaceView();
+    const form = document.getElementById('addRaceForm');
+    const data = raceData.find(race => race._id === id);
 
-    raceData.push(race);
-    displayRaceTableData();
-    displayMainView();
+    // if there is no data ( a recently created race, then we will need to reload raceData with API call...)
+
+    form.date.value = data.date.slice(0, 10);
+    form.distance.value = data.distanceMiles;
+    form.raceName.value = data.raceName;
+    form.time.value = data.time;
+    form.pace.value = data.pace;
+    form.id.value = data._id;
+}
+
+function clearFormData() {  
+    const form = document.getElementById('addRaceForm');  
+    form.date.value = null;
+    form.distance.value = null;
+    form.raceName.value = null;
+    form.time.value = null;
+    form.pace.value = null;
+    form.id.value = "";
 }
 
 

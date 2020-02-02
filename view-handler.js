@@ -2,10 +2,8 @@ var currentView = 'racesView';
 
 // set up elements with event handlers:
 function addEventListeners() {
-    document.getElementById('racesLink').addEventListener("click", 
-        function() { clickViewLink(event, 'racesView'); });
-    document.getElementById('addRaceLink').addEventListener("click", 
-        function() { clickViewLink(event, 'addRaceView'); });
+    document.getElementById('racesLink').addEventListener("click", displayMainView);
+    document.getElementById('addRaceLink').addEventListener("click", displayAddRaceView);
     document.getElementById('userLink').addEventListener("click", 
         function() { clickViewLink(event, 'userView'); });
 }
@@ -25,6 +23,23 @@ function changeView(desiredView) {
 
 function displayMainView() {
     changeView('racesView');
+}
+
+function displayAddRaceView() {
+    clearFormData();
+    show('add-race-form-header');
+    hide('edit-race-form-header');
+    show('addRaceButton');
+    hide('updateRaceButton');
+    changeView('addRaceView');
+}
+
+function displayEditRaceView() {
+    hide('add-race-form-header');
+    show('edit-race-form-header');
+    hide('addRaceButton');
+    show('updateRaceButton');
+    changeView('addRaceView');
 }
 
 function hide(elementID) {
