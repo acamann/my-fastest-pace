@@ -7,6 +7,7 @@
     <script src='https://d3js.org/d3.v4.min.js'></script>
     <script src='pace-data.js'></script>
     <script src='view-handler.js'></script>
+    <script src='auth.js'></script>
     <script src="https://kit.fontawesome.com/dd4f417e34.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Faster+One|Poppins&display=swap" rel="stylesheet">
@@ -29,6 +30,9 @@
         </form> -->
     </header>
     <main>
+        <button id="btn-call-api" onclick="callApi()">Call Api</button>
+        <pre id="api-call-result"></pre>
+
         <div id="racesView" class="view visible">
             <section id="pace-graph-container">            
                 <div id="race-type-toggle"></div>
